@@ -1,0 +1,47 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>Learn Web Components</title>
+
+	<style type="text/css">
+		.container {
+			background-color: red;
+		}
+		.container h1 {
+			color: green;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- <div class="container" is='hello-world'></div> -->
+	<hello-world></hello-world>
+	<script type="text/javascript">
+		class HelloWorld extends HTMLElement {
+			constructor() {
+				super();
+				console.log(this)
+				this.attachShadow({mode: 'open'})
+				const container = document.createElement('div')
+				container.setAttribute('class', 'container')
+
+				const msg = container.appendChild(document.createElement('h1'))
+				msg.textContent = 'Hello World'
+
+				this.shadowRoot.append(container)
+
+				// const msg = document.createElement('h1')
+				// msg.textContent = 'Hello World'
+				// this.shadowRoot.append(msg)
+			}
+
+			connectedCallback() {
+				console.log('Custom element added to page.');
+			}
+		}
+
+		customElements.define('hello-world', HelloWorld)
+		// customElements.define('hello-world', HelloWorld, {extends: 'div'})
+	</script>
+</body>
+</html>
